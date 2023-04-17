@@ -1,0 +1,29 @@
+@import "./common/var.scss";
+@import "./mixins/mixin.scss";
+
+@include b(row) {
+  display: flex;
+  flex-wrap: wrap;
+  position: relative;
+  box-sizing: border-box;
+  margin: 5px 0;
+  .tp-col:nth-child(odd) {
+   background-color: #667180;
+  }
+  //添加is-
+  @include when(flex-end) {
+    justify-content: flex-end;
+  }
+  @include when(center) {
+    justify-content: center;
+  }
+  @include when(space-around) {
+    justify-content: space-around;
+  }
+  @include when(space-between) {
+    justify-content: space-between;
+  }
+  @include when(space-evenly) {
+    justify-content: space-evenly;
+  }
+}

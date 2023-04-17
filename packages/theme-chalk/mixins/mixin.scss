@@ -1,0 +1,64 @@
+//提供方法  
+
+@use "../common/var.scss";
+
+//BEM
+// Block（块）、Element（元素）、Modifier（修饰符）
+// BEM命名规则
+// 块名称为其元素和修饰符定义了命名空间。
+// 块名称与元素名称之间用双连字符--分隔。
+// 块名称与修饰符或元素与修饰符之间用双下划线__分隔。
+// 命名一般使用小写字母。
+// 单词之间可以使用-分隔。
+// 命名约定的模式有如下几种：
+
+
+// .block{}
+// .block__element{}
+// .block--modifier{}
+// .block__element{}--modifier{}
+
+@mixin b($block) { //
+    $B: $namespace+'-'+$block; //.tp-button{}
+    .#{$B}{ //
+        @content;
+    }
+}
+// .tp-button.is-xxx
+@mixin when($state) {
+    @at-root { //.tp-button
+        &.#{$state-prefix + $state} {
+            @content;
+        }
+    }
+}
+// &--primary => .tp-button--primary
+@mixin m($modifier) {
+    @at-root {
+        #{&+$modifier-separator+$modifier} {
+            @content;
+        }
+    }
+}
+// &__header  => .tp-button__header
+@mixin e($element) {
+    @at-root {
+        #{&+$element-separator+$element} {
+            @content;
+        }
+    }
+}
+
+//处理button-type
+@mixin button-type($color,$border-color,$backgound){
+      color:$color;
+      border-color:$border-color;
+      background:$backgound
+}
+
+//处理button-type
+@mixin message-type($color,$border-color,$backgound){
+    color:$color;
+    border-color:$border-color;
+    background:$backgound
+}

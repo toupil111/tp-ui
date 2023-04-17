@@ -1,0 +1,19 @@
+{
+  "name": "@tp-ui/col",
+  "version": "0.0.0",
+  "description": "> TODO: description",
+  "author": "toupiL <toupil272@gmail.com>",
+  "homepage": "",
+  "license": "ISC",
+  "main": "lib/col.js",
+  "directories": {
+    "lib": "lib",
+    "test": "__tests__"
+  },
+  "files": [
+    "lib"
+  ],
+  "scripts": {
+    "test": "node ./__tests__/col.test.js"
+  }
+}

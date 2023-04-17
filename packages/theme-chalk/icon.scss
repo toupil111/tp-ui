@@ -1,0 +1,54 @@
+@import "./common/var.scss";
+@import "./mixins/mixin.scss";
+
+@font-face {
+  font-family: "tp-ui-icons"; /* Project id 3992215 */
+  src: url('./fonts/iconfont.woff2') format('woff2'),
+       url('./fonts/iconfont.woff') format('woff'),
+       url('./fonts/iconfont.ttf') format('truetype');
+}
+
+[class^='#{$namespace}-icon-']{
+  font-family: "tp-ui-icons" !important;
+  font-size: 16px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.tp-icon-bolanggu:before {
+  content: "\e6eb";
+}
+
+.tp-icon-jinzita:before {
+  content: "\e6ec";
+}
+
+.tp-icon-konglong:before {
+  content: "\e6ed";
+}
+
+.tp-icon-jimu:before {
+  content: "\e6ee";
+}
+
+.tp-icon-shatanqiu:before {
+  content: "\e6ef";
+}
+
+.tp-icon-yingerchuang:before {
+  content: "\e6f0";
+}
+
+.tp-icon-neiku:before {
+  content: "\e6f1";
+}
+
+.tp-icon-wazi:before {
+  content: "\e6f2";
+}
+
+.tp-icon-Loading:before {
+  content: "\e6e8";
+}
+
