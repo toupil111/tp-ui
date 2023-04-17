@@ -9,9 +9,10 @@
   left: 50%;
   transform: translate(-50%);
   min-width: 220px;
-  border-radius: 20px;
+  border-radius: 8px;
   height: 40px;
   line-height: 40px;
+  opacity: 0.6;
   transition: transform 0.4s, top 0.4s;
   // button组件的样式 ：
   // button组件的样式 ：

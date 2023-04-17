@@ -1,21 +1,10 @@
 <template>
   <!-- 添加动画：进来和出去要有效果 -->
-  <transition
-    name="tp-message-fade"
-    @before-leave="onClose"
-    @after-leave="$emit('destory')"
-  >
-    <div
-      class="tp-message"
-      v-show="show"
-      :class="class_props"
-      :style="offset_props"
-      :id="id"
-      @mouseenter="clearTime"
-      @mouseleave="startTime"
-    >
+  <transition name="tp-message-fade" @before-leave="onClose" @after-leave="onDestroy">
+    <div class="tp-message" v-show="show" :class="class_props" :style="offset_props" :id="id" @mouseenter="clearTime"
+      @mouseleave="startTime">
       {{ message }}
-      <span v-if="grouping">{{ repeatNum }}</span>
+      <span v-if="repeatNum > 1">{{ repeatNum }}</span>
       <span v-if="showClose" @click="close">X</span>
     </div>
   </transition>
@@ -33,21 +22,26 @@ import {
 } from "vue";
 import { Itype } from "./message.type";
 import { getLastOffset, getOffsetOrSpace } from "./instances";
+
+const EVENT_CODE = {
+  esc: 'Escape',
+}
 export default defineComponent({
   props: {
     //重新写一边
     id: { type: String, default: "" },
     message: { type: [String, Object], default: "" },
-    type: { type: String as PropType<Itype>, default: "" }, //如果你想要属性有提示  就用PropType 作用检测 类型，提示作用
+    type: { type: String as PropType<Itype>, default: "success" }, //如果你想要属性有提示  就用PropType 作用检测 类型，提示作用
     duration: { type: Number, default: 2000 },
     center: { type: String, default: "" },
     onClose: { type: Function as PropType<() => void> },
     offset: { type: Number, default: 20 },
-    showClose: { type: Boolean, default: true },
+    showClose: { type: Boolean, default: false },
     repeatNum: { type: Number, default: 0 },
     grouping: { type: Boolean, default: false },
+    onDestroy: { type: Function as PropType<() => void> },
   },
-  expose: ["show", "close"],
+  expose: ["show", "close", "repeatNum"],
   setup(props) {
     //过度效果
     const show = ref(false);
@@ -69,26 +63,23 @@ export default defineComponent({
       "tp-message--" + props.type,
       props.center ? "is-center" : "",
     ]);
-
+    const repeatNum = ref(0)
     const close = () => {
       show.value = false;
       clearTime();
     };
-
-    watch(
-      () => props.repeatNum,
+    // 从props传过去的repeatNum不更新 没测出来，
+    props.grouping && watch(
+      () => repeatNum.value,
       () => {
         clearTime();
         startTime();
-        console.log(1);
-        console.log(props.repeatNum);
       }
     );
     const lastOffset = computed(() => getLastOffset(props.id));
     const offset = computed(
       () => getOffsetOrSpace(props.id, props.offset) + lastOffset.value
     );
-
     const offset_props = computed(() => [`top: ${offset.value}px;`]);
     onMounted(() => {
       startTime();
@@ -110,7 +101,7 @@ export default defineComponent({
       close,
       startTime,
       clearTime,
-      repeatNum: props.repeatNum,
+      repeatNum
     };
   },
 });
