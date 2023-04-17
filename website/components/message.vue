@@ -26,7 +26,7 @@
 <script>
 import { defineComponent,ref } from "vue";
 //引入 message
-import Message from "../../packages/message";
+import Message from "../../packages/component/message";
 export default defineComponent({
   setup() {
     const ClickChange1 = () => {

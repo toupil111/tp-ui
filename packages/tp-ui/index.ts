@@ -1,17 +1,18 @@
-//进行整合
-import Button from "@tp-ui/button";
-import Icon from "@tp-ui/icon";
-import ButtonGroup from "@tp-ui/button-group";
-import Row from '@tp-ui/row'
-import Col from '@tp-ui/col'
-import CheckBox from '@tp-ui/checkbox'
-import CheckboxGroup from '@tp-ui/checkbox-group'
-import Transfer from '@tp-ui/transfer'
+// //进行整合
+import Button from "@tp-ui/component/button";
+import Icon from "@tp-ui/component/icon";
+import ButtonGroup from "@tp-ui/component/button-group";
+import Row from '@tp-ui/component/row'
+import Col from '@tp-ui/component/col'
+import CheckBox from '@tp-ui/component/checkbox'
+import CheckboxGroup from '@tp-ui/component/checkbox-group'
+import Transfer from '@tp-ui/component/transfer'
+import Dialog from '@tp-ui/component/dialog'
 
 import { App } from "vue";
 // 创建一个组件
-
-
+// import { Dialog } from '@tp-ui/component/index'
+  // console.log(Dialog);
 const components = [
   //全部引入
   Button,
@@ -21,7 +22,8 @@ const components = [
   Col,
   CheckBox,
   CheckboxGroup,
-  Transfer
+  Transfer,
+  Dialog,
 ];
 //全局动态添加组件
 
