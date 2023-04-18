@@ -13,7 +13,7 @@
                     <template v-if="slots.footer">
                         <slot name="footer" />
                     </template>
-                </div>
+                </div>~
             </div>
         <!-- </transition> -->
     <!-- </teleport> -->
