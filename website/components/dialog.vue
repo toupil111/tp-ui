@@ -2,15 +2,16 @@
     <div class="container">
         <tp-button type="primary" @click="open">click</tp-button>
         <tp-dialog :visible="visible" :title="'test'">
-            <template #header>
-                    header
-            </template>
+            <!-- <template #header>
+                Header slot is provided
+            </template> -->
             <template #title>
-                    title
+                title slot is provided
             </template>
             <template #footer>
-                    footer
+                <div>Footer </div>
             </template>
+            
         </tp-dialog>
     </div>
 </template>
