@@ -1,22 +1,40 @@
 <template>
     <div class="container" v-show="visible">
-        <div> 123123
+        213123123
+        {{ title }}
+        <div>
+            {{ $slots }}
+            <header ref="headerRef" class="dialog-header">
+                <slot name="header">
+                </slot>
+            </header>
+            {{ mySlots }}
+            <slot />
+            <footer v-if="mySlots.footer" class="dialog-footer">
+                <slot name="footer" />
+            </footer>
         </div>
     </div>
 </template>
 <script lang="ts">
+import { title } from "process";
 import {
     defineComponent,
 } from "vue";
 export default defineComponent({
-    name: "tp-dialog",
+    name: "overlay",
     props: {
         visible: { type: Boolean, default: false },
+        title: { type: String, default: "tips" },
     },
-    setup(props) {
+    setup(props, { slots }) {
         console.log(props);
+        console.log(slots);
+        // const slots = useSlots()
+        // console.log(slots,'slots');
+        const mySlots = slots;
         return {
-
+            mySlots,
         };
     },
 });
