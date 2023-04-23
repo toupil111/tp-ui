@@ -1,6 +1,5 @@
 <template>
     <div class="container" v-show="visible">
-        213123123
         {{ title }}
         <div>
             {{ $slots }}
@@ -17,14 +16,13 @@
     </div>
 </template>
 <script lang="ts">
-import { title } from "process";
 import {
     defineComponent,
 } from "vue";
 export default defineComponent({
     name: "overlay",
     props: {
-        visible: { type: Boolean, default: false },
+        visible: { type: Boolean, default: true },
         title: { type: String, default: "tips" },
     },
     setup(props, { slots }) {

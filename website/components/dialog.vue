@@ -1,48 +1,74 @@
 <template>
-    <div class="container">
-        <tp-button type="primary" @click="open">click</tp-button>
-        <tp-dialog :visible="visible" :title="'test'">
-            <template #header>
-                Header slot is provided
-            </template>
-            <template #footer>
-                <div>Footer </div>
-            </template>
-        </tp-dialog>
-        <overlay :visible="visible">
-            <template #header>
-                Header slot is provided
-            </template>
-            <template #footer>
-                <div>Footer </div>
-            </template>
-        </overlay>
+  <div class="container" ref="dialogRef">
+    <div>
+      <tp-button type="primary" @click="open">click</tp-button>
     </div>
-</template>
-<script>
-import { defineComponent, ref } from "vue";
-import overlay from "../../packages/component/dialog/src/overlay.vue";
-console.log('overlay',overlay);
+    <tp-dialog v-model="visible" @before-close="handleClose">
+      <template #header> Header slot is provided </template>
+      <template #default>
+        <div>default</div>
+      </template>
+      <template #footer>
+        <tp-button type="primary" @click="open">sure</tp-button>
+        <tp-button type="info" @click="cancel">cancel</tp-button>
+      </template>
+    </tp-dialog>
+  </div>
+</template>   
+<script lang="ts">
+import { defineComponent, nextTick, onMounted, ref, watch } from "vue";
 export default defineComponent({
-    setup() {
-        const visible = ref(false)
-        const open = () => {
-            visible.value = true;
-        }
-        return {
-            visible,
-            open,
-        };
-    },
+  setup() {
+    const visible = ref(false);
+
+    const open = () => {
+      visible.value = true;
+    };
+    const cancel = () => {
+      visible.value = false;
+    };
+
+    const v1 = ref(false);
+    const v2 = ref(false);
+    const open1 = () => {
+      v1.value = true;
+    };
+    const open2 = () => {
+      v2.value = true;
+    };
+    const handleClose = (done) => {
+      console.log(done);
+      done();
+    };
+    return {
+      visible,
+      open,
+      v1,
+      v2,
+      open1,
+      open2,
+      cancel,
+      handleClose,
+    };
+  },
 });
 </script>
 <style lang="scss" scoped>
 .container {
-    display: flex;
-    flex-direction: column;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
-.container>div {
-    margin: 20px 0;
+.container > div {
+  margin: 20px 0;
+}
+
+.v1 .v2 {
+  width: 100%;
+  height: 100%;
+  background-color: #ccc;
+  opacity: 0.5;
 }
 </style>
