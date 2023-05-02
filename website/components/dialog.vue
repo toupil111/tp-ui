@@ -3,7 +3,7 @@
     <div>
       <tp-button type="primary" @click="open">click</tp-button>
     </div>
-    <tp-dialog v-model="visible" @before-close="handleClose">
+    <tp-dialog @open="open" @opened="opened" @close="close" :open-delay-time="1000" :close-delay-time="1000" @closed="closed" v-model="visible" :close-on-click-modal="true" :before-close="handleClose">
       <template #header> Header slot is provided </template>
       <template #default>
         <div>default</div>
@@ -24,12 +24,15 @@ export default defineComponent({
     const open = () => {
       visible.value = true;
     };
+
     const cancel = () => {
       visible.value = false;
     };
 
     const v1 = ref(false);
+
     const v2 = ref(false);
+
     const open1 = () => {
       v1.value = true;
     };
@@ -37,9 +40,15 @@ export default defineComponent({
       v2.value = true;
     };
     const handleClose = (done) => {
-      console.log(done);
       done();
     };
+
+    const opened = ()=> {
+      console.log('opened');
+    }
+    const closed = ()=> {
+      console.log('closed');
+    }
     return {
       visible,
       open,
@@ -49,6 +58,9 @@ export default defineComponent({
       open2,
       cancel,
       handleClose,
+      opened,
+      close,
+      closed
     };
   },
 });

@@ -3,6 +3,7 @@ import {
   getCurrentInstance,
   nextTick,
   onMounted,
+  onUnmounted,
   ref,
   watch,
 } from "vue";
@@ -18,28 +19,14 @@ export const useDialog = (props, targetRef) => {
   let openTimer: (() => void) | undefined = undefined;
   let closeTimer: (() => void) | undefined = undefined;
 
-  const overlayDialogStyle = computed(() => {
-    if (props.alignCenter) {
-      return { display: "flex" };
-    }
-    return {};
-  });
-
-  const close = () => {
-    visible.value = false;
-  };
   const handleClose = () => {
-    // let done = () => {
-    //   close();
-    // };
-    // emit("beforeClose", done);
     function hide(shouldCancel?: boolean) {
       if (shouldCancel) return;
-      closed.value = true;
-      visible.value = false;
+      close();
     }
+    console.log(props.beforeClose);
     if (props.beforeClose) {
-      emit("beforeClose", hide);
+      props.beforeClose(hide);
     } else {
       close();
     }
@@ -49,54 +36,44 @@ export const useDialog = (props, targetRef) => {
     emit("opened");
   }
 
-  //   function afterLeave() {
-  //     emit("closed");
-  //     emit(UPDATE_MODEL_EVENT, false);
-  //     if (props.destroyOnClose) {
-  //       rendered.value = false;
-  //     }
-  //   }
+  function afterLeave() {
+    emit("closed");
+    emit(UPDATE_MODEL_EVENT, false);
+    if (props.destroyOnClose) {
+      // rendered.value = false;
+    }
+  }
 
   function beforeLeave() {
     emit("close");
   }
 
-  function open() {
-    // closeTimer?.()
-    // openTimer?.()
-
-    // if (props.openDelay && props.openDelay > 0) {
-    //   ;({ stop: openTimer } = useTimeoutFn(() => doOpen(), props.openDelay))
-    // } else {
-    //   doOpen()
-    // }
+  const doOpen = () => {
     visible.value = true;
+  };
+  function open() {
+    if (props.openDelayTime && props.openDelayTime > 0) {
+      openTimer = setTimeout(() => {
+        doOpen();
+      }, props.openDelayTime) as any;
+    } else {
+      doOpen();
+    }
   }
 
-  // function close() {
-  //   openTimer?.()
-  //   closeTimer?.()
+  const doClose = () => {
+    visible.value = false;
+  };
 
-  //   if (props.closeDelay && props.closeDelay > 0) {
-  //     ;({ stop: closeTimer } = useTimeoutFn(() => doClose(), props.closeDelay))
-  //   } else {
-  //     doClose()
-  //   }
-  // }
-
-  //   function handleClose() {
-  //     function hide(shouldCancel?: boolean) {
-  //       if (shouldCancel) return;
-  //       closed.value = true;
-  //       visible.value = false;
-  //     }
-
-  //     if (props.beforeClose) {
-  //       props.beforeClose(hide);
-  //     } else {
-  //       close();
-  //     }
-  //   }
+  function close() {
+    if (props.closeDelayTime && props.closeDelayTime > 0) {
+      closeTimer = setTimeout(() => {
+        doClose();
+      }, props.closeDelayTime) as any;
+    } else {
+      doClose();
+    }
+  }
 
   function onModalClick() {
     if (props.closeOnClickModal) {
@@ -104,27 +81,14 @@ export const useDialog = (props, targetRef) => {
     }
   }
 
-  // function doOpen() {
-  //   if (!isClient) return
-  //   visible.value = true
-  // }
-
-  function doClose() {
-    visible.value = false;
-  }
-
-  function onOpenAutoFocus() {
-    emit("openAutoFocus");
-  }
-
-  function onCloseAutoFocus() {
-    emit("closeAutoFocus");
-  }
-
-  function onFocusoutPrevented(event: CustomEvent) {
-    if (event.detail?.focusReason === "pointer") {
-      event.preventDefault();
+  function handleClickMask() {
+    console.log(props.closeOnClickModal);
+    if (props.closeOnClickModal) {
+      handleClose();
     }
+  }
+  function handleStop(e) {
+    e.stopPropagation();
   }
 
   // if (props.lockScroll) {
@@ -136,16 +100,30 @@ export const useDialog = (props, targetRef) => {
       handleClose();
     }
   }
-
+  const clickESC = (event) => {
+    if (event.key === "Escape" || event.key === "Esc") {
+      handleClose();
+    }
+  };
   onMounted(() => {
     if (props.modelValue) {
       visible.value = true;
       //   rendered.value = true; // enables lazy rendering
       //   open();
-      // console.log(targetRef,'targetRef');
     }
   });
 
+  onUnmounted(() => {
+    clearTimeout(closeTimer as any);
+    clearTimeout(openTimer as any);
+  });
+  // console.log(props.modelValue);
+  watch(
+    () => visible.value,
+    (val) => {
+      emit(UPDATE_MODEL_EVENT, val);
+    }
+  );
   watch(
     () => props.modelValue,
     (val) => {
@@ -153,13 +131,15 @@ export const useDialog = (props, targetRef) => {
         closed.value = false;
         open();
         nextTick(() => {
-          // emit("open");
           if (targetRef) {
-            console.log(targetRef);
+            props.closeOnPressEscape &&
+              document.addEventListener("keydown", clickESC);
           }
         });
       } else {
         if (visible.value) {
+          props.closeOnPressEscape &&
+            document.removeEventListener("keydown", clickESC, true);
           close();
         }
       }
@@ -167,18 +147,17 @@ export const useDialog = (props, targetRef) => {
   );
   return {
     afterEnter,
-    // afterLeave,
+    afterLeave,
     beforeLeave,
     handleClose,
     onModalClick,
     close,
     doClose,
-    onOpenAutoFocus,
-    onCloseAutoFocus,
     onCloseRequested,
-    onFocusoutPrevented,
-    overlayDialogStyle,
+    // overlayDialogStyle,
     // rendered,
     visible,
+    handleClickMask,
+    handleStop,
   };
 };
