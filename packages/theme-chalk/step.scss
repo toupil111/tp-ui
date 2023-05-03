@@ -1,0 +1,112 @@
+@import "./common/var.scss";
+@import "./mixins/mixin.scss";
+
+@include b(step) {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 1;
+  flex-basis: 50%;
+  @include pseudo(last-of-type) {
+    @include e(line) {
+      // display: none;
+      background-color: red;
+    }
+
+    // // 只有未设置 space 的情况下才自适应宽度
+    // @include when(flex) {
+    //   flex-basis: auto !important;
+    //   flex-shrink: 0;
+    //   flex-grow: 0;
+    // }
+
+    // @include e((main, description)) {
+    //   padding-right: 0;
+    // }
+  }
+  @include e(line) {
+    position: absolute;
+    border-color: inherit;
+    background-color: black;
+    height: 2px;
+    top: 11px;
+    left: 0;
+    right: 0;
+  }
+
+  @include e(line-inner) {
+    display: block;
+    border-width: 1px;
+    border-style: solid;
+    border-color: inherit;
+    transition: 0.15s ease-out;
+    box-sizing: border-box;
+    width: 0;
+    height: 0;
+  }
+
+  @include e(icon) {
+    position: relative;
+    z-index: 1;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 24px;
+    height: 24px;
+    font-size: 14px;
+    box-sizing: border-box;
+    background: #fff;
+    transition: 0.15s ease-out;
+
+    @include when(text) {
+      border-radius: 50%;
+      border: 2px solid;
+      border-color: inherit;
+    }
+
+    @include when(icon) {
+      width: 40px;
+    }
+  }
+  @include e(icon-inner) {
+    display: inline-block;
+    user-select: none;
+    text-align: center;
+    font-weight: 700;
+    line-height: 1;
+    color: inherit;
+  }
+
+  @include e(main) {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    flex-grow: 1;
+  }
+
+  @include when(process) {
+    color: getCssVar("text-color", "primary");
+    border-color: getCssVar("text-color", "primary");
+  }
+
+  @include when(wait) {
+    color: getCssVar("text-color", "placeholder");
+    border-color: getCssVar("text-color", "placeholder");
+  }
+
+  @include when(success) {
+    color: getCssVar("color-success");
+    border-color: getCssVar("color-success");
+  }
+
+  @include when(error) {
+    color: getCssVar("color-danger");
+    border-color: getCssVar("color-danger");
+  }
+
+  @include when(finish) {
+    color: getCssVar("color-primary");
+    border-color: getCssVar("color-primary");
+  }
+}

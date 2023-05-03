@@ -1,4 +1,4 @@
-//提供方法  
+//提供方法
 
 @use "../common/var.scss";
 
@@ -12,53 +12,60 @@
 // 单词之间可以使用-分隔。
 // 命名约定的模式有如下几种：
 
-
 // .block{}
 // .block__element{}
 // .block--modifier{}
 // .block__element{}--modifier{}
 
-@mixin b($block) { //
-    $B: $namespace+'-'+$block; //.tp-button{}
-    .#{$B}{ //
-        @content;
-    }
+@mixin b($block) {
+  //
+  $B: $namespace + "-" + $block; //.tp-button{}
+  .#{$B} {
+    //
+    @content;
+  }
 }
 // .tp-button.is-xxx
 @mixin when($state) {
-    @at-root { //.tp-button
-        &.#{$state-prefix + $state} {
-            @content;
-        }
+  @at-root {
+    //.tp-button
+    &.#{$state-prefix + $state} {
+      @content;
     }
+  }
 }
 // &--primary => .tp-button--primary
 @mixin m($modifier) {
-    @at-root {
-        #{&+$modifier-separator+$modifier} {
-            @content;
-        }
+  @at-root {
+    #{& + $modifier-separator + $modifier} {
+      @content;
     }
+  }
 }
 // &__header  => .tp-button__header
 @mixin e($element) {
-    @at-root {
-        #{&+$element-separator+$element} {
-            @content;
-        }
+  @at-root {
+    #{& + $element-separator + $element} {
+      @content;
     }
+  }
 }
 
 //处理button-type
-@mixin button-type($color,$border-color,$backgound){
-      color:$color;
-      border-color:$border-color;
-      background:$backgound
+@mixin button-type($color, $border-color, $backgound) {
+  color: $color;
+  border-color: $border-color;
+  background: $backgound;
 }
 
 //处理button-type
-@mixin message-type($color,$border-color,$backgound){
-    color:$color;
-    border-color:$border-color;
-    background:$backgound
+@mixin message-type($color, $border-color, $backgound) {
+  color: $color;
+  border-color: $border-color;
+  background: $backgound;
+}
+@mixin pseudo($pseudo) {
+  @at-root #{&}#{":#{$pseudo}"} {
+    @content;
+  }
 }

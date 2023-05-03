@@ -8,6 +8,10 @@ import CheckBox from '@tp-ui/component/checkbox'
 import CheckboxGroup from '@tp-ui/component/checkbox-group'
 import Transfer from '@tp-ui/component/transfer'
 import Dialog from '@tp-ui/component/dialog'
+import Step from '@tp-ui/component/step'
+import Steps from '@tp-ui/component/steps'
+
+
 
 import { App } from "vue";
 // 创建一个组件
@@ -24,6 +28,8 @@ const components = [
   CheckboxGroup,
   Transfer,
   Dialog,
+  Step,
+  Steps
 ];
 //全局动态添加组件
 
