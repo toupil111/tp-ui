@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="tp-steps">
     <slot name="default"></slot>
   </div>
 </template>
@@ -14,8 +14,10 @@ import {
   render,
   watch,
   provide,
+  getCurrentInstance,
 } from "vue";
-// import step from "../../step/src/step.vue";
+import type { StepItemState } from "../../step/src/step.vue";
+
 export default defineComponent({
   name: "tp-steps",
   props: {
@@ -37,16 +39,27 @@ export default defineComponent({
       values: ["wait", "process", "finish", "error", "success"],
       default: "process",
     },
-  },     
+  },
+  emits:['change'],
   setup(props, { emit }) {
-    const steps = ref([])
+    const steps = ref([]);
     provide("tpSteps", { props, steps });
+
     watch(
       () => props.active,
       (newVal: number, oldVal: number) => {
-        emit('change', newVal, oldVal);
+        emit("change", newVal, oldVal);
+        console.log( newVal, oldVal);
       }
     );
+    console.log(props.active);
+    
+    watch(steps, () => {
+      console.log(steps);
+      steps.value.forEach((instance: StepItemState, index: number) => {
+        instance.setIndex(index);
+      });
+    });
   },
 });
 </script>
