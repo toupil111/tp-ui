@@ -1,15 +1,15 @@
 <template>
   <div :style="props_class" class="tp-step">
-    <div class="tp-step__line">
-      <i class="tp-step__line-inner"></i>
+    <div :class="['tp-step__line','is-'+`${currentStatus}`]">
+      <i :class="'tp-step__line-inner'"></i>
     </div>
-    <div class="tp-step__icon is-text">
+    <div :class="['tp-step__icon','is-text','is-'+`${currentStatus}`]">
       <div class="tp-step__icon-inner">{{ index + 1 }}</div>
     </div>
     <div class="tp-step__main">
       <div v-if="description" :class="['tp-step__description','is-'+`${currentStatus}`]">{{ description }}</div>
-      <div v-if="title" :class="['tp-step__title',,'is-'+`${currentStatus}`]">{{ title }}</div>
-      <div v-if="icon" :class="['tp-step__icon',,'is-'+`${currentStatus}`]">{{ icon }}</div>
+      <div v-if="title" :class="['tp-step__title','is-'+`${currentStatus}`]">{{ title }}</div>
+      <div v-if="icon" :class="['tp-step__icon','is-'+`${currentStatus}`]">{{ icon }}</div>
     </div>
   </div>
 </template>
@@ -82,7 +82,8 @@ export default defineComponent({
     });
     console.log(parent, "parent");
     const currentInstance = getCurrentInstance();
-
+    console.log(currentInstance,'currentInstance');
+    
     onBeforeUnmount(() => {
       parent.steps.value = parent.steps.value.filter(
         (instance) => instance.uid !== currentInstance?.uid

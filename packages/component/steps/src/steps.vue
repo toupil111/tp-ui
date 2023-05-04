@@ -1,5 +1,5 @@
 <template>
-  <div class="tp-steps">
+  <div :class="['tp-steps','is-' + direction]">
     <slot name="default"></slot>
   </div>
 </template>
@@ -39,24 +39,31 @@ export default defineComponent({
       values: ["wait", "process", "finish", "error", "success"],
       default: "process",
     },
+    direction: {
+      type: String,
+      values: ["vertical", "horizontal"],
+      default:'horizontal'
+    },
   },
-  emits:['change'],
+  emits: ["change"],
   setup(props, { emit }) {
     const steps = ref([]);
+
     provide("tpSteps", { props, steps });
 
     watch(
       () => props.active,
       (newVal: number, oldVal: number) => {
         emit("change", newVal, oldVal);
-        console.log( newVal, oldVal);
+        console.log(newVal, oldVal);
       }
     );
     console.log(props.active);
-    
+
     watch(steps, () => {
-      console.log(steps);
+      console.log(steps, "steps");
       steps.value.forEach((instance: StepItemState, index: number) => {
+        console.log(instance, "instance");
         instance.setIndex(index);
       });
     });
