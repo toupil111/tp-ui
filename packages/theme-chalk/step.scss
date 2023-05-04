@@ -31,48 +31,6 @@
     //   padding-right: 0;
     // }
   }
-  @include when(horizontal) {
-    display: inline-block;
-
-    @include e(line) {
-      height: 2px;
-      top: 11px;
-      left: 0;
-      right: 0;
-    }
-  }
-
-  @include when(vertical) {
-    display: flex;
-
-    @include e(head) {
-      flex-grow: 0;
-      width: 24px;
-    }
-
-    @include e(main) {
-      padding-left: 10px;
-      flex-grow: 1;
-    }
-
-    @include e(title) {
-      line-height: 24px;
-      padding-bottom: 8px;
-    }
-
-    @include e(line) {
-      width: 2px;
-      top: 0;
-      bottom: 0;
-      left: 11px;
-    }
-
-    @include e(icon) {
-      @include when(icon) {
-        width: 24px;
-      }
-    }
-  }
   @include e(line) {
     position: absolute;
     border-color: inherit;
@@ -167,7 +125,48 @@
     line-height: 1;
     color: inherit;
   }
+  @include when(horizontal) {
+    display: inline-block;
 
+    @include e(line) {
+      height: 2px;
+      top: 11px;
+      left: 0;
+      right: 0;
+    }
+  }
+
+  @include when(vertical) {
+    display: flex;
+
+    @include e(head) {
+      flex-grow: 0;
+      width: 24px;
+    }
+
+    @include e(main) {
+      padding-left: 10px;
+      flex-grow: 1;
+    }
+
+    @include e(title) {
+      line-height: 24px;
+      padding-bottom: 8px;
+    }
+
+    @include e(line) {
+      width: 2px;
+      top: 0;
+      bottom: 0;
+      left: 11px;
+    }
+
+    @include e(icon) {
+      @include when(icon) {
+        width: 24px;
+      }
+    }
+  }
   @include e(main) {
     position: relative;
     display: flex;

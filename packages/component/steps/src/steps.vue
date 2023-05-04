@@ -1,5 +1,5 @@
 <template>
-  <div :class="['tp-steps','is-' + direction]">
+  <div :class="['tp-steps','tp-steps--' + direction]">
     <slot name="default"></slot>
   </div>
 </template>

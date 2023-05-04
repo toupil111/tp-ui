@@ -1,5 +1,5 @@
 <template>
-  <div :style="props_class" class="tp-step">
+  <div :style="props_class" :class="['tp-step','is-'+ parent.props.direction]">
     <div :class="['tp-step__line','is-'+`${currentStatus}`]">
       <i :class="'tp-step__line-inner'"></i>
     </div>
@@ -149,7 +149,8 @@ export default defineComponent({
     return {
       props_class,
       index,
-      currentStatus
+      currentStatus,
+      parent
     };
   },
 });
