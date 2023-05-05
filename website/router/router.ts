@@ -8,6 +8,9 @@ import transfer from "../components/transfer.vue";
 import message from '../components/message.vue'
 import dialog from '../components/dialog.vue'
 import steps from '../components/steps.vue'
+import Switch from '../components/switch.vue'
+
+
 
 const routes = [
   {
@@ -44,6 +47,11 @@ const routes = [
     path: "/steps",
     name: "Steps",
     component: steps,
+  },
+  {
+    path: "/switch",
+    name: "Switch",
+    component: Switch,
   },
 ];
 

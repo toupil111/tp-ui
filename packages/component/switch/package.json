@@ -1,0 +1,26 @@
+{
+  "name": "@packages/component/switch",
+  "version": "0.0.0",
+  "description": "> TODO: description",
+  "author": "toupil111 <toupil272@gmail.com>",
+  "homepage": "https://github.com/toupil111/tp-ui#readme",
+  "license": "ISC",
+  "main": "lib/switch.js",
+  "directories": {
+    "lib": "lib",
+    "test": "__tests__"
+  },
+  "files": [
+    "lib"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/toupil111/tp-ui.git"
+  },
+  "scripts": {
+    "test": "node ./__tests__/switch.test.js"
+  },
+  "bugs": {
+    "url": "https://github.com/toupil111/tp-ui/issues"
+  }
+}
