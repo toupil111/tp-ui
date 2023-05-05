@@ -3,7 +3,7 @@
     <div>
       <tp-button type="primary" @click="open">click</tp-button>
     </div>
-    <tp-dialog @open="open" @opened="opened" @close="close" :open-delay-time="1000" :close-delay-time="1000" @closed="closed" v-model="visible" :close-on-click-modal="true" :before-close="handleClose">
+    <tp-dialog @open="open" :append-to-body="true" @opened="opened" @close="close" :open-delay-time="1000" :close-delay-time="1000" @closed="closed" v-model="visible" :close-on-click-modal="true" :before-close="handleClose">
       <template #header> Header slot is provided </template>
       <template #default>
         <div>default</div>

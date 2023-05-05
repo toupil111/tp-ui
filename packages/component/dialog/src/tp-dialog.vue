@@ -1,5 +1,5 @@
 <template>
-  <teleport to="body">
+  <teleport to="body" :disabled="!appendToBody">
     <transition
       name="tp-mask"
       @after-enter="afterEnter"
@@ -73,6 +73,7 @@ export default defineComponent({
     closeOnPressEscape: { type: Boolean, default: true },
     openDelayTime: { type: Number, default: 0 },
     closeDelayTime: { type: Number, default: 0 },
+    appendToBody: { type: Boolean, default: false },
   },
   //   expose: ["visible"],
   emits: [
