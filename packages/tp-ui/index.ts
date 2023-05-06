@@ -10,6 +10,8 @@ import Transfer from '@tp-ui/component/transfer'
 import Dialog from '@tp-ui/component/dialog'
 import Step from '@tp-ui/component/step'
 import Steps from '@tp-ui/component/steps'
+import Switch from '@tp-ui/component/switch'
+
 
 
 
@@ -29,7 +31,8 @@ const components = [
   Transfer,
   Dialog,
   Step,
-  Steps
+  Steps,
+  Switch
 ];
 //全局动态添加组件
 

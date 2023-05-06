@@ -6,19 +6,59 @@
  * @Description: 
 -->
 <template>
-  <div>
-    switch.vue
+  <div  class="tp-switch">
+    <input
+      :true-value="activeValue"
+      :false-value="inactiveValue"
+      type="checkbox"
+      role="switch"
+    />
   </div>
 </template>
 <script lang="ts">
-import {
-  defineComponent,
-} from "vue";
+import { defineComponent, ref, watch } from "vue";
 
 export default defineComponent({
   name: "tp-switch",
+  emits: ["update:modelValue", "change",  "input"],
+  props: {
+    modelValue: {
+      type: [Boolean, String, Number],
+      default: false,
+    },
+    value: {
+      type: [Boolean, String, Number],
+      default: false,
+    },
+    disabled: {
+      type: Boolean,
+      default: false,
+    },
+    activeValue: {
+      type: [Boolean, String, Number],
+      default: true,
+    },
+    inactiveValue: {
+      type: [Boolean, String, Number],
+      default: false,
+    },
+  },
   setup(props) {
+    const isControlled = ref(props.modelValue !== false);
 
+    watch(
+      () => props.modelValue,
+      () => {
+        isControlled.value = true;
+      }
+    );
+
+    watch(
+      () => props.value,
+      () => {
+        isControlled.value = false;
+      }
+    );
   },
 });
 </script>

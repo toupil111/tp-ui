@@ -1,7 +1,6 @@
 <template>
   <div>
-    <tp-switch>123123</tp-switch>
-    tp-switchtp-switch
+    <tp-switch v-model="value"></tp-switch>
   </div>
 </template>
 <script lang="ts">
@@ -9,13 +8,10 @@ import { defineComponent, ref } from "vue";
 
 export default defineComponent({
   setup() {
-    const active = ref(0);
-    const next = () => {
-      if (active.value++ > 2) active.value = 0;
-    };
+    const value = ref(false);
+
     return {
-      active,
-      next,
+      value,
     };
   },
 });
