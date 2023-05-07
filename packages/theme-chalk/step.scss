@@ -21,15 +21,15 @@
     flex-shrink: 0;
     flex-grow: 0;
     // // 只有未设置 space 的情况下才自适应宽度
-    // @include when(flex) {
-    //   flex-basis: auto !important;
-    //   flex-shrink: 0;
-    //   flex-grow: 0;
-    // }
+    @include when(flex) {
+      flex-basis: auto !important;
+      flex-shrink: 0;
+      flex-grow: 0;
+    }
 
-    // @include e((main, description)) {
-    //   padding-right: 0;
-    // }
+    @include e((main, description)) {
+      padding-right: 0;
+    }
   }
   @include e(line) {
     position: absolute;
@@ -255,3 +255,8 @@
     border-color: $--color-primary;
   }
 }
+
+
+
+
+
