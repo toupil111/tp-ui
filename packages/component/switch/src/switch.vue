@@ -92,11 +92,20 @@ class ElementPlusError extends Error {
     this.name = "ElementPlusError";
   }
 }
-declare const isPromise: <T = any>(val: unknown) => val is Promise<T>;
-declare const isBoolean: (val: any) => val is boolean;
+// declare const isPromise: <T = any>(val: unknown) => val is Promise<T>;
+// declare const isBoolean: (val: any) => val is boolean;
+
 export function throwError(scope: string, m: string): never {
   throw new ElementPlusError(`[${scope}] ${m}`);
 }
+function isPromise(value) {  
+  return value instanceof Promise || value.constructor === Promise;  
+}
+
+function isBoolean(value) {    
+  return value === true || value === false;    
+}
+
 // -----------------
 import {
   defineComponent,
@@ -197,6 +206,7 @@ export default defineComponent({
     }
 
     const handleChange = () => {
+      console.log(1111111111);
       const val = checked.value ? props.inactiveValue : props.activeValue;
       console.log(checked.value, "checked.value");
       console.log(val, "val");
@@ -245,7 +255,6 @@ export default defineComponent({
       } else if (shouldChange) {
         handleChange();
       }
-      handleChange();
     };
 
     onMounted(() => {

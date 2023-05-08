@@ -4,14 +4,19 @@
       :inactive-icon="Close" -->
     <tp-switch
       v-model="value"
-      :active-value="'1'"
-      :inactive-value="'2'"
       active-text="1"
       inactive-text="2"
       inline-prompt
       :loading="loading1"
       :before-change="beforeChange1"
     ></tp-switch>
+
+    <tp-switch
+      v-model="value2"
+      class="ml-2"
+      :loading="loading2"
+      :before-change="beforeChange2"
+    />
   </div>
 </template>
 <script lang="ts">
@@ -19,7 +24,12 @@ import { defineComponent, ref } from "vue";
 import Message from "../../packages/component/message";
 export default defineComponent({
   setup() {
-    const value = ref("2");
+    const value = ref(false);
+
+    const value1 = ref(false);
+    const value2 = ref(false);
+    const loading1 = ref(false);
+    const loading2 = ref(false);
     const beforeChange1 = () => {
       loading1.value = true;
       return new Promise((resolve) => {
@@ -34,11 +44,27 @@ export default defineComponent({
       });
     };
 
-    const loading1 = ref(false);
+    const beforeChange2 = () => {
+      loading2.value = true;
+      return new Promise((_, reject) => {
+        setTimeout(() => {
+          loading2.value = false;
+          Message({
+            message: "Switch failed",
+            type: "danger",
+          });
+          return reject(new Error("Error"));
+        }, 1000);
+      });
+    };
+
     return {
       value,
+      value2,
       loading1,
-      beforeChange1
+      loading2,
+      beforeChange1,
+      beforeChange2,
     };
   },
 });
