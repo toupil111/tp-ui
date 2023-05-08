@@ -103,6 +103,7 @@
     & .#{$namespace}-switch__core,
     & .#{$namespace}-switch__label {
       cursor: not-allowed;
+      opacity: 0.6;
     }
   }
 }

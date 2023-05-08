@@ -16,7 +16,7 @@ dynamicProps
     :class="[
       'tp-switch',
       checked ? 'is-checked' : '',
-      disabled ? 'is-disabled' : '',
+      switchDisabled ? 'is-disabled' : '',
     ]"
     @click.prevent="switchValue"
   >
@@ -38,6 +38,7 @@ dynamicProps
       :false-value="inactiveValue"
       :disabled="disabled"
       :aria-checked="checked"
+      :aria-disabled="switchDisabled"
       ref="input"
       type="checkbox"
       role="switch"
@@ -57,7 +58,14 @@ dynamicProps
           </span>
         </template>
       </div>
-      <div class="tp-switch__action"></div>
+      <div class="tp-switch__action">
+        <tp-icon
+          v-if="loading"
+          name="Loading"
+          :class="[loading ? 'is-disabled' : '']"
+        >
+        </tp-icon>
+      </div>
     </span>
     <span
       v-if="!inlinePrompt && (activeIcon || activeText)"
@@ -73,10 +81,23 @@ dynamicProps
   </div>
 </template>
 <script lang="ts">
+// ----------copy过来的函数工具
 export const UPDATE_MODEL_EVENT = "update:modelValue";
 export const CHANGE_EVENT = "change";
 export const INPUT_EVENT = "input";
 
+class ElementPlusError extends Error {
+  constructor(m: string) {
+    super(m);
+    this.name = "ElementPlusError";
+  }
+}
+declare const isPromise: <T = any>(val: unknown) => val is Promise<T>;
+declare const isBoolean: (val: any) => val is boolean;
+export function throwError(scope: string, m: string): never {
+  throw new ElementPlusError(`[${scope}] ${m}`);
+}
+// -----------------
 import {
   defineComponent,
   ref,
@@ -86,9 +107,9 @@ import {
   computed,
   onMounted,
 } from "vue";
-
+const COMPONENT_NAME = "tp-switch";
 export default defineComponent({
-  name: "tp-switch",
+  name: COMPONENT_NAME,
   emits: ["update:modelValue", "change", "input"],
   props: {
     width: {
@@ -104,6 +125,10 @@ export default defineComponent({
       default: false,
     },
     disabled: {
+      type: Boolean,
+      default: false,
+    },
+    loading: {
       type: Boolean,
       default: false,
     },
@@ -133,14 +158,15 @@ export default defineComponent({
     inactiveIcon: {
       type: String as any,
     },
+    beforeChange: {
+      type: Function,
+    },
   },
   setup(props) {
     const { emit } = getCurrentInstance();
 
     const isControlled = ref(props.modelValue !== false);
     const input = ref<HTMLInputElement>();
-
-    console.log(props);
 
     watch(
       () => props.modelValue,
@@ -181,43 +207,44 @@ export default defineComponent({
         input.value!.checked = checked.value as any;
       });
     };
-    const switchDisabled = computed(() => props.disabled);
+    const switchDisabled = computed(() => props.disabled || props.loading);
 
     const switchValue = () => {
       if (switchDisabled.value) return;
 
-      // const { beforeChange } = props;
-      // if (!beforeChange) {
-      //   handleChange();
-      //   return;
-      // }
+      const { beforeChange } = props;
+      if (!beforeChange) {
+        handleChange();
+        return;
+      }
+      console.log(beforeChange, "beforeChange");
 
-      // const shouldChange = beforeChange();
+      const shouldChange = beforeChange();
 
-      // const isPromiseOrBool = [
-      //   isPromise(shouldChange),
-      //   isBoolean(shouldChange),
-      // ].includes(true);
-      // if (!isPromiseOrBool) {
-      //   throwError(
-      //     COMPONENT_NAME,
-      //     "beforeChange must return type `Promise<boolean>` or `boolean`"
-      //   );
-      // }
+      const isPromiseOrBool = [
+        isPromise(shouldChange),
+        isBoolean(shouldChange),
+      ].includes(true);
+      if (!isPromiseOrBool) {
+        throwError(
+          COMPONENT_NAME,
+          "beforeChange must return type `Promise<boolean>` or `boolean`"
+        );
+      }
 
-      // if (isPromise(shouldChange)) {
-      //   shouldChange
-      //     .then((result) => {
-      //       if (result) {
-      //         handleChange();
-      //       }
-      //     })
-      //     .catch((e) => {
-      //       debugWarn(COMPONENT_NAME, `some error occurred: ${e}`);
-      //     });
-      // } else if (shouldChange) {
-      //   handleChange();
-      // }
+      if (isPromise(shouldChange)) {
+        shouldChange
+          .then((result) => {
+            if (result) {
+              handleChange();
+            }
+          })
+          .catch((e) => {
+            console.warn(COMPONENT_NAME, `some error occurred: ${e}`);
+          });
+      } else if (shouldChange) {
+        handleChange();
+      }
       handleChange();
     };
 
@@ -236,6 +263,7 @@ export default defineComponent({
       checked,
       handleChange,
       switchValue,
+      switchDisabled,
     };
   },
 });
