@@ -11,9 +11,7 @@ import Dialog from '@tp-ui/component/dialog'
 import Step from '@tp-ui/component/step'
 import Steps from '@tp-ui/component/steps'
 import Switch from '@tp-ui/component/switch'
-
-
-
+import Input from '@tp-ui/component/input'
 
 import { App } from "vue";
 // 创建一个组件
@@ -32,7 +30,8 @@ const components = [
   Dialog,
   Step,
   Steps,
-  Switch
+  Switch,
+  Input
 ];
 //全局动态添加组件
 

@@ -16,8 +16,12 @@ import {
   provide,
   getCurrentInstance,
 } from "vue";
-import type { StepItemState } from "../../step/src/step.vue";
-
+interface StepItemState {
+  uid: number | undefined;
+  currentStatus: string;
+  setIndex: (val: number) => void;
+  calcProgress: (status: string) => void;
+}
 export default defineComponent({
   name: "tp-steps",
   props: {

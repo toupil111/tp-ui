@@ -1,11 +1,11 @@
-# `common`
+# `input`
 
 > TODO: description
 
 ## Usage
 
 ```
-const common = require('common');
+const input = require('input');
 
 // TODO: DEMONSTRATE API
 ```

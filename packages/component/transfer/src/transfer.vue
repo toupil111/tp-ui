@@ -39,7 +39,7 @@ export default defineComponent({
   },
   props:{
     data:{
-        type: Array as PropType<ItransferProps>
+        type: Array
     },
     props:{ //别名
          type:Object

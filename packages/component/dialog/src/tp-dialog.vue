@@ -51,14 +51,12 @@ import {
   watch,
   watchEffect,
 } from "vue";
-import overlay from "./overlay.vue";
-import { useDialog } from "./use-dialog.ts";
+import { useDialog } from "./use-dialog";
 
 type DoneFn = (cancel?: boolean) => void;
 type DialogBeforeCloseFn = (done: DoneFn) => void;
 
 export default defineComponent({
-  components: { overlay },
   name: "tp-dialog",
   props: {
     // title: { type: String, default: "tips" },

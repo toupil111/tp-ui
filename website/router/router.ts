@@ -9,7 +9,7 @@ import message from '../components/message.vue'
 import dialog from '../components/dialog.vue'
 import steps from '../components/steps.vue'
 import Switch from '../components/switch.vue'
-
+import Input from '../components/input.vue'
 
 
 const routes = [
@@ -52,6 +52,11 @@ const routes = [
     path: "/switch",
     name: "Switch",
     component: Switch,
+  },
+  {
+    path: "/Input",
+    name: "Input",
+    component: Input,
   },
 ];
 

@@ -54,7 +54,7 @@ const createMessage = (component, options) => {
   return instance;
 };
 
-const Message = (options: ImessageOptions) => {
+const Message = (options: any) => {
   //ts中类型保护  （1）string （2）对象
   if (typeof options === "string") {
     options = {
@@ -63,7 +63,7 @@ const Message = (options: ImessageOptions) => {
   }
   if (options.grouping && instances.length) {
     const instance = instances.find(
-      ({ vnode: vm }) => vm.props?.message === options.message
+      ({ vnode: vm }) => vm.props?.message === options.message 
     );
     if (instance) {
       instance.vm.exposed!.repeatNum += 1;
