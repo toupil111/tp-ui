@@ -12,6 +12,9 @@ import Step from '@tp-ui/component/step'
 import Steps from '@tp-ui/component/steps'
 import Switch from '@tp-ui/component/switch'
 import Input from '@tp-ui/component/input'
+import Skeleton from '@tp-ui/component/skeleton'
+import SkeletonItem from '@tp-ui/component/skeleton-item'
+
 
 import { App } from "vue";
 // 创建一个组件
@@ -31,7 +34,9 @@ const components = [
   Step,
   Steps,
   Switch,
-  Input
+  Input,
+  Skeleton,
+  SkeletonItem
 ];
 //全局动态添加组件
 

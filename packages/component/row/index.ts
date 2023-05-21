@@ -17,5 +17,3 @@ Row.install = (app: App) => {
 
 //暴露出去
 export default Row;
-
-//x
