@@ -25,7 +25,7 @@ const components = [
   Button,
   Icon,
   ButtonGroup,
-  Row,
+  Row, 
   Col,
   CheckBox,
   CheckboxGroup,
