@@ -14,6 +14,7 @@ import Switch from '@tp-ui/component/switch'
 import Input from '@tp-ui/component/input'
 import Skeleton from '@tp-ui/component/skeleton'
 import SkeletonItem from '@tp-ui/component/skeleton-item'
+import Tag from '@tp-ui/component/Tag'
 
 
 import { App } from "vue";
@@ -36,7 +37,8 @@ const components = [
   Switch,
   Input,
   Skeleton,
-  SkeletonItem
+  SkeletonItem,
+  Tag
 ];
 //全局动态添加组件
 

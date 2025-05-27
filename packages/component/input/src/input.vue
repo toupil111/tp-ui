@@ -1,8 +1,10 @@
 <template>
   <!-- 并接 -->
-  <input class="tp-input" 
-  placeholder="'123132130'"
-  type="text"/>
+  <input
+    class="tp-input"
+    :placeholder="placeholder"
+    type="text"
+  />
 </template>
   
   <script lang="ts">
@@ -15,7 +17,13 @@ export default defineComponent({
       type: String,
       default: "",
     },
+    placeholder: {
+      type: String,
+      default: "",
+    },
   },
-  setup() {},
+  setup() {
+    return {};
+  },
 });
 </script>

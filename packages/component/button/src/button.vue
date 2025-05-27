@@ -39,7 +39,6 @@ export default defineComponent({
     loading: Boolean,
   },
   setup(props, ctx) {
-    // computed可以这样子赋值第一次看见
     const class_props = computed(() => [
       //
       "tp-button",

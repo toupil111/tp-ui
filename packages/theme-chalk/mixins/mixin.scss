@@ -57,6 +57,12 @@
   border-color: $border-color;
   background: $backgound;
 }
+//处理tag-type
+@mixin tag-type($color, $border-color, $backgound) {
+  color: $color;
+  border-color: $border-color;
+  background: $backgound;
+}
 
 //处理button-type
 @mixin message-type($color, $border-color, $backgound) {

@@ -1,0 +1,83 @@
+@import "./common/var.scss";
+@import "./mixins/mixin.scss";
+@import "./mixins/utils.scss";
+@import "./common/var.scss"; //变量
+
+@include b(tag) {
+  border-color: rgb(216.8, 235.6, 255);
+  color: #409eff;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  vertical-align: middle;
+  height: 24px;
+  padding: 0 9px;
+  font-size: 12px;
+  line-height: 0;
+  border-width: 1px;
+  border-style: solid;
+  border-radius: 4px;
+  box-sizing: border-box;
+  white-space: nowrap;
+  // @include e(tag) {
+  //   position: relative;
+  //   z-index: 1;
+  //   margin: 0;
+  //   width: 0;
+  //   height: 0;
+  //   opacity: 0;
+  // }
+
+  @include when(checked) {
+    .#{$namespace}-switch__core {
+      border-color: #409eff;
+      background-color: #409eff;
+      .#{$namespace}-switch__action {
+        left: calc(100% - 17px);
+        color: #409eff;
+      }
+      .#{$namespace}-switch__inner {
+        padding: 0 18px 0 4px;
+      }
+    }
+  }
+  @include when(disabled) {
+    & .#{$namespace}-switch__core,
+    & .#{$namespace}-switch__label {
+      cursor: not-allowed;
+      opacity: 0.6;
+    }
+  }
+
+  @include when(closeable) {
+    & .#{$namespace}-tag__close {
+      @include m(primary) {
+        @include tag-type($--color-white, $--color-primary, $--color-primary);
+      }
+      @include m(success) {
+        @include tag-type($--color-white, $--color-success, $--color-success);
+      }
+      @include m(info) {
+        @include tag-type($--color-white, $--color-info, $--color-info);
+      }
+      @include m(danger) {
+        @include tag-type($--color-white, $--color-danger, $--color-danger);
+      }
+    }
+  }
+  .#{$namespace}-tag__close {
+    margin-left: 5px;
+  }
+  @include m(primary) {
+    @include tag-type($--color-white, $--color-primary, $--color-primary);
+  }
+  @include m(success) {
+    @include tag-type($--color-white, $--color-success, $--color-success);
+  }
+  @include m(info) {
+    @include tag-type($--color-white, $--color-info, $--color-info);
+  }
+  @include m(danger) {
+    @include tag-type($--color-white, $--color-danger, $--color-danger);
+  }
+}

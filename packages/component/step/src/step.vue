@@ -71,9 +71,6 @@ export default defineComponent({
     },
   },
   setup(props, {}) {
-    // const props_class = computed(()=> {
-    //   return props.
-    // })
     const parent = inject("tpSteps") as any;
     const internalStatus = ref("");
     const prevStatus = computed(() => {
